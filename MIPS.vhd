@@ -6,7 +6,9 @@ use ieee.std_logic_arith.all;
 entity proj is
 	port (
 		clock	    : in std_logic;
-		reset	    : in std_logic
+		reset	    : in std_logic;
+		R1_out      : out std_logic_vector(7 downto 0);
+		R2_out      : out std_logic_vector(7 downto 0)
 		);
 end proj;
 
@@ -48,6 +50,8 @@ architecture behavior of proj is
     
 begin 
     
+	R1_out <= R1;
+	R2_out <= R2;
 --ALOCA OS REGS DA SAÍDA DO BANCO DE REGISTRADORES EM R1 E R2 E O OPERADOR IMEDIATO---------------------------------
 
     R1 <= regs(conv_integer(mem_inst(conv_integer(PC))(7 downto 4)));
