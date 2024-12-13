@@ -1,0 +1,127 @@
+lw de 5 para reg 1
+lw de 3 para reg 2
+add de r1 e r2 e guardar em r3 = 8
+subt de r1 e r2 e guarda em r4 = 3
+mult de r1 e r2 e guarda em r5 = 15
+beq de r3 e r4, se houver desvio va para a última instrução
+soma de r1 e r4 e guardar em r4
+jump para o beq
+sw de r4 na memoria de dados na posição 1
+
+-- 0000 SOMA  /  0001 SUB /  0010 MUL /   0011 JMP /  0100 BEQ /   0101 BNE /   0110 LW /   0111 SW /  1000 LDI /   1001 ADDI /   1010 SUBI/   1011 MULI/
+
+Considere a seguinte organização do formato das instruções 
+ADD -> 0000 0000 0000 0000
+        OP    RD   R1   R2
+SUB ->  0000 0000 0000 0000
+        OP    RD     R1     R2
+MUL -> 0000 0000 0000 0000
+        OP    RD     R1     R2
+JMP-> 0000 0000 0000 0000
+      OP        DESVIO 
+BEQ-> 0000 0000 0000 0000
+       OP    R1    R2    DESL
+BNE->0000 0000 0000 0000
+       OP     R1     R2   DESL
+LW->0000 0000 0000 0000
+    OP    RD     DESVIO
+SW->0000 0000 0000 0000
+     OP    RO     DESVIO
+ADDI ->0000 0000 0000 0000
+       OP    RD    R1   IM
+SUBI ->0000 0000 0000 0000
+        OP    RD    R1   IM
+MULI ->0000 0000 0000 0000
+       OP    RD    R1   IM
+
+"0000"--ADD
+
+"0001" =;--SUB
+                   
+"0010" --MULTI
+
+0011 BNE
+
+0100 BEQ
+
+0101 JMP  
+ 
+"0110"--LW
+              
+"0111" --SW
+               
+"1000"--ADDI
+
+"1001"--SUBI
+
+"1010"--LDI
+               
+"1011"--MULI
+
+
+lw $2 10($0)
+lw $3 11($0)
+addi $1, 0, 1
+add $4, $2, $0
+beq $0, $4, 7
+sub $4, $4, $3
+add $5, $5, $1
+j 6
+sw $5 12($0)
+
+
+
+
+1010001000001111 	0 lw
+0110010100000010	1 ldi
+1000000100000001	2 addi
+0000010000100000	3 add
+0100000000100100	4 beq
+1001010001000001	5 subt
+0000010101010001	6 add
+0101000000000100	7 jmp
+0111010100000100	8 sw
+
+
+
+lw $2 10($0)
+lw $3 11($0)
+addi $1, 0, 1
+add $4, $2, $0
+beq $0, $4, 7
+
+add $0, $0, $0
+add $0, $0, $0
+add $0, $0, $0
+add $0, $0, $0
+
+sub $4, $4, $3
+add $5, $5, $1
+j 6
+add $0, $0, $0
+add $0, $0, $0
+add $0, $0, $0
+add $0, $0, $0
+sw $5 12($0)
+
+
+0110 0010 0000 0001 	0 lw
+0110 0101 0000 0010	1 lw
+1111111111111111	5
+1111111111111111	5
+1000 0001 0000 0001	2 addi
+0000 0100 0010 0000	3 add
+0100 0000 0010 0111	4 beq
+1111111111111111	5
+1111111111111111	6
+1111111111111111	7
+1111111111111111	8
+1001010001000001	9 subt
+0000010101010001	10 add
+0101000000000100	11 jmp
+1111111111111111	12
+1111111111111111	13
+1111111111111111	14
+1111111111111111	15
+0111010100000100	16 sw
+
