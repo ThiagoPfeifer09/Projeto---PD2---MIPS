@@ -13,8 +13,9 @@ architecture behaviour of TB_Proj_Pipeline is
         port(
             clock       : in std_logic;
             reset       : in std_logic;
-            R1_out      : out std_logic_vector(7 downto 0)
-        );  R2_out      : out std_logic_vector(7 downto 0)
+            R1_out      : out std_logic_vector(7 downto 0);
+           R2_out      : out std_logic_vector(7 downto 0)
+           );
     end component;
 
     -- Sinais para o testbench
